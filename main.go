@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/joho/godotenv"
 	"github.com/line/line-bot-sdk-go/v7/linebot"
 	"log"
 	"moneykeeper/services"
@@ -24,11 +23,6 @@ import (
 var bot *linebot.Client
 
 func main() {
-	err := godotenv.Load(".env")
-	if err != nil {
-		log.Fatal("error loading .env file")
-	}
-
 	bot, err := linebot.New(os.Getenv("CHANNEL_SECRET_KEY"), os.Getenv("LINE_ACCESS_KEY"))
 	if err != nil {
 		log.Fatal(err)
