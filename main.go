@@ -41,7 +41,6 @@ func main() {
 
 		for _, event := range events {
 			if event.Type == linebot.EventTypeMessage {
-				fmt.Println("in type", linebot.EventTypeMessage, event.Message)
 				switch message := event.Message.(type) {
 				case *linebot.TextMessage:
 					if event.Source.Type == linebot.EventSourceTypeGroup {
@@ -80,7 +79,6 @@ func main() {
 		w.Write([]byte("hello11"))
 	})
 
-	fmt.Println(":" + os.Getenv("PORT"))
 	if err := http.ListenAndServe(":"+os.Getenv("PORT"), nil); err != nil {
 		log.Fatal(err)
 	}
