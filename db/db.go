@@ -4,13 +4,15 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"os"
 	"strings"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
 func Initial() (bool, *sql.DB) {
-	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/money_keeper")
+
+	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", os.Getenv("MYSQL_USER"), os.Getenv("MYSQL_PASSWORD"), os.Getenv("MYSQL_URL"), os.Getenv("MYSQL_PORT"), os.Getenv("MYSQL_DATABASE")))
 	if err != nil {
 		log.Fatal(err)
 		return false, nil
