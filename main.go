@@ -46,8 +46,6 @@ func main() {
 		}
 
 		for _, event := range events {
-			//res, _ := json.Marshal(event)
-
 			if event.Type == linebot.EventTypeMessage {
 				fmt.Println("in type", linebot.EventTypeMessage, event.Message)
 				switch message := event.Message.(type) {
@@ -81,11 +79,7 @@ func main() {
 					break
 				}
 			}
-			//fmt.Println(string(res))
 		}
-
-		// fmt.Printf("%#v", events)
-		// fmt.Println(events)
 	})
 
 	http.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
@@ -112,16 +106,3 @@ func validateMsg(text string) bool {
 
 	return true
 }
-
-//func handleMsg(groupId string, userId string, text string) (data CostLogData) {
-//	strArray := strings.Split(text, " ")
-//
-//	amount, _ := strconv.Atoi(strings.Trim(strArray[2], " "))
-//	return CostLogData{
-//		GroupId: groupId,
-//		UserId:  userId,
-//		Name:    strings.Trim(strArray[0], " "),
-//		Comment: strings.Trim(strArray[1], " "),
-//		Amount:  amount,
-//	}
-//}
