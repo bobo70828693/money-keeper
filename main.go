@@ -60,16 +60,14 @@ func main() {
 								pricePrinter := textPrinter.NewPrinter(language.English)
 
 								total := 0
-								transAmount := ""
 								for i, amountItem := range amountResult {
-									transAmount = pricePrinter.Sprintf("%d", amountItem["amount"])
-									costResultStr += fmt.Sprintf("[%s] 花費 %s", amountItem["name"], transAmount)
+									costResultStr += fmt.Sprintf("[%s] 花費 %s", amountItem["name"], pricePrinter.Sprintf("%d", amountItem["amount"]))
 									total += amountItem["amount"].(int)
 									if i != len(amountResult)-1 {
 										costResultStr += "\n"
 									}
 								}
-								costResultStr += fmt.Sprintf("\n總共花費 %d", total)
+								costResultStr += fmt.Sprintf("\n總共花費 %d", pricePrinter.Sprintf("%d", total))
 
 								if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(costResultStr)).Do(); err != nil {
 									log.Print(err)
