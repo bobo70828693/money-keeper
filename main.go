@@ -67,7 +67,7 @@ func main() {
 										costResultStr += "\n"
 									}
 								}
-								costResultStr += fmt.Sprintf("\n總共花費 %d", pricePrinter.Sprintf("%d", total))
+								costResultStr += fmt.Sprintf("\n總共花費 %s", pricePrinter.Sprintf("%d", total))
 
 								if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(costResultStr)).Do(); err != nil {
 									log.Print(err)
