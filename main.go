@@ -55,12 +55,15 @@ func main() {
 								amountResult := services.GetCurrentMonthCostLogAmount(groupId)
 								costResultStr := fmt.Sprintf("目前 %d 月份花費\n", time.Now().Month())
 
+								total := 0
 								for i, amountItem := range amountResult {
 									costResultStr += fmt.Sprintf("[%s] 花費 %d", amountItem["name"], amountItem["amount"])
+									total += amountItem["amount"].(int)
 									if i != len(amountResult)-1 {
 										costResultStr += "\n"
 									}
 								}
+								costResultStr += fmt.Sprintf("\n總共花費 %d", total)
 
 								if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(costResultStr)).Do(); err != nil {
 									log.Print(err)
