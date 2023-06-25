@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/line/line-bot-sdk-go/v7/linebot"
+	"golang.org/x/text/language"
+	textPrinter "golang.org/x/text/message"
 	"log"
 	"moneykeeper/services"
 	"net/http"
@@ -55,9 +57,13 @@ func main() {
 								amountResult := services.GetCurrentMonthCostLogAmount(groupId)
 								costResultStr := fmt.Sprintf("目前 %d 月份花費\n", time.Now().Month())
 
+								pricePrinter := textPrinter.NewPrinter(language.English)
+
 								total := 0
+								transAmount := ""
 								for i, amountItem := range amountResult {
-									costResultStr += fmt.Sprintf("[%s] 花費 %d", amountItem["name"], amountItem["amount"])
+									transAmount = pricePrinter.Sprintf("%d", amountItem["amount"])
+									costResultStr += fmt.Sprintf("[%s] 花費 %s", amountItem["name"], transAmount)
 									total += amountItem["amount"].(int)
 									if i != len(amountResult)-1 {
 										costResultStr += "\n"
